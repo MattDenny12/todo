@@ -1,0 +1,28 @@
+.TaskBannerRow {
+    padding-bottom: 0px;
+    padding-top: 20px;
+    height: auto;
+}
+
+.AddTaskButton {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #5555ff;
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #5555ff;
+    border-style: dashed;
+    border-width: 3px;
+    border-radius: 5px;
+    width: 90%;
+    height: 60px;
+    transition-duration: 0.33s;
+}
+
+.AddTaskButton:hover {
+    color: #ffffff;
+    background-color: #5555ff;
+    border-color: #5555ff;
+    border-style: solid;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}

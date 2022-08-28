@@ -1,0 +1,75 @@
+.TaskCompact {
+    background-color: #fafafa;
+    /* border-color: #f7f7f7; */
+    /* border-style: solid; */
+    border-width: 2px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    display: inline-block;
+    padding: 10px;
+}
+
+.TaskCompleteContainer {
+    /* background-color: orange; */
+    padding: 3px;
+    height: 36px;
+    width: 36px;
+    margin-left: 0px;
+    margin-right: auto;
+}
+
+.TaskCompleteIndicator{
+    padding: 3px;
+    border-color: #222222;
+    background-color: #222222;
+    border-style: solid;
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+}
+
+.TimedTaskTimeContainer {
+    min-width: 100px;
+    line-height: 50px;
+    height: 50px;
+    text-align: right;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+.TaskTopCol {
+    padding-left: 0px;
+    padding-right: 10px;
+}
+
+.TaskTopRow {
+    height: auto;
+    align-items: center;
+}
+
+.TaskTitle {
+    color: #5555ff;
+    font-weight: 600;
+    font-size: 28px;
+    height: 100%;
+    align-items: center;
+    vertical-align: middle;
+    text-align: left;
+    display: inline-block;
+    margin: 0px;
+}
+
+.TaskSummary {
+    color: #999999;
+    text-overflow: clip;
+    max-width: 75%;
+    font-style: italic;
+}
+
+.TaskStartDate {
+    color: #999999;
+    font-style: italic;
+    min-width: 100px;
+    text-align: right;
+}
