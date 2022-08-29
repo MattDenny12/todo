@@ -1,11 +1,10 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import TimedTask from '../timed_task';
-import './index.css';
 
 const TaskList = (props) => {
 
-    let { taskList, deleteTaskFunction } = props;
+    let { taskList, deleteTaskFunction, updateTaskFunction } = props;
 
     if (!taskList) {
         taskList = [];
@@ -24,6 +23,7 @@ const TaskList = (props) => {
                         dateStarted={task.dateStarted}
                         totalTime={task.totalTime === null ? 0 : task.totalTime}
                         deleteTaskFunction={deleteTaskFunction}
+                        updateTaskFunction={updateTaskFunction}
                     />
                 </Row>
             ))}

@@ -1,11 +1,13 @@
 .TaskCompact {
     background-color: #fafafa;
-    border-width: 2px;
+    border-color: #5555ff;
+    border-width: 0px;
     border-radius: 5px;
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
     width: 90%;
     display: inline-block;
     padding: 10px;
+    transition-duration: 0.1s;
 }
 
 .TaskCompleteContainer {
@@ -61,7 +63,6 @@
 .TaskSummary {
     color: #999999;
     text-overflow: clip;
-    max-width: 75%;
     font-style: italic;
 }
 
@@ -70,4 +71,87 @@
     font-style: italic;
     min-width: 100px;
     text-align: right;
+}
+
+.TaskButtonRow {
+    padding: 0px;
+    padding-top: 5px;
+    height: 45px;
+    align-items: center;
+}
+
+.TaskFocusButton {
+    border-width: 0px;
+    border-radius: 5px;
+    border-color: #5555ff;
+    border-style: solid;
+    background-color: #5555ff;
+    align-items: center;
+    color: #fafafa;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    transition-duration: 0.1s;
+}
+
+.TaskFocusButton:hover {
+    border-width: 5px;
+    margin: 0px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.TaskEditButton {
+    border-width: 0px;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    align-items: center;
+    color: #787b7c;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    transition-duration: 0.1s;
+}
+
+.TaskEditButton:hover {
+    border-width: 5px;
+    border-color: #f5f5f5;
+    background-color: #f5f5f5;
+    margin: 0px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.TaskDeleteButton {
+    border-width: 0px;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 0, 0);
+    border-style: solid;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    align-items: center;
+    color: #eb4242;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    width: auto;
+    height: auto;
+    margin: 5px;
+    transition-duration: 0.1s;
+}
+
+.TaskDeleteButton:hover {
+    border-width: 5px;
+    border-color: #eb4242;
+    background-color: #eb4242;
+    color: #fafafa;
+    margin: 0px;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
 }

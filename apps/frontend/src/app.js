@@ -65,6 +65,7 @@ class App extends React.Component {
         this.handleAddTask = this.handleAddTask.bind(this);
         this.handleAddTaskCancel = this.handleAddTaskCancel.bind(this);
         this.handleDeleteTask = this.handleDeleteTask.bind(this);
+        this.handleUpdateTask = this.handleUpdateTask.bind(this);
         this._updateTaskList = this._updateTaskList.bind(this);
     }
 
@@ -97,6 +98,15 @@ class App extends React.Component {
         }
     }
 
+    handleUpdateTask(index, updatedTask) {
+        let newTaskList = this.state.taskList;
+
+        if (index in newTaskList) {
+            newTaskList[index] = updatedTask;
+            this._updateTaskList(newTaskList);
+        }
+    }
+
     /**
      * Updates the task list and stores the new task list in the cookies.
      * @param {Array} newTaskList The new task list that will be used to updated the current task list.
@@ -113,8 +123,8 @@ class App extends React.Component {
         let addTaskForm =
             this.state.addingTask
                 ? <TimedTaskForm 
-                    addTaskFunction={(newTask) => this.handleAddTask(newTask)} 
-                    cancelFunction={() => this.handleAddTaskCancel()}
+                    addTaskFunction={this.handleAddTask} 
+                    cancelFunction={this.handleAddTaskCancel}
                     />
                 : null;
 
@@ -132,10 +142,13 @@ class App extends React.Component {
                 : null;
 
         return (
-            <Container fluid>
+            <Container 
+                fluid
+                className='AppContainer'>
                 <TaskList 
                     taskList={this.state.taskList} 
-                    deleteTaskFunction={(index) => this.handleDeleteTask(index)}
+                    deleteTaskFunction={this.handleDeleteTask}
+                    updateTaskFunction={this.handleUpdateTask}
                 />
                 {addTaskForm}
                 {addTaskButton}

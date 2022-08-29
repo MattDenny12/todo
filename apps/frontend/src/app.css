@@ -1,3 +1,33 @@
+@media (min-width: none) {
+    .AppContainer {
+        max-width: 320px;
+    }
+}
+
+@media (min-width: 576px) {
+    .AppContainer {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .AppContainer {
+        max-width: 680px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .AppContainer {
+        max-width: 800px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .AppContainer {
+        max-width: 900px;
+    }
+}
+
 .TaskBannerRow {
     padding-bottom: 0px;
     padding-top: 20px;
@@ -10,19 +40,22 @@
     font-weight: 600;
     color: #5555ff;
     background-color: rgba(0, 0, 0, 0);
+    outline-color: #5555ff;
+    outline-width: 0px;
+    outline-style: solid;
     border-color: #5555ff;
     border-style: dashed;
     border-width: 3px;
     border-radius: 5px;
     width: 90%;
     height: 60px;
-    transition-duration: 0.33s;
+    transition-duration: 0.1s;
 }
 
 .AddTaskButton:hover {
     color: #ffffff;
     background-color: #5555ff;
     border-color: #5555ff;
-    border-style: solid;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+    outline-width: 5px;
+    box-shadow: 0px 9px 5px rgba(0, 0, 0, 0.3);
 }
