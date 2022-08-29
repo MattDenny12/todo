@@ -5,7 +5,7 @@ import './index.css';
 
 const TaskList = (props) => {
 
-    let { taskList } = props;
+    let { taskList, deleteTaskFunction } = props;
 
     if (!taskList) {
         taskList = [];
@@ -23,6 +23,7 @@ const TaskList = (props) => {
                         summary={task.summary}
                         dateStarted={task.dateStarted}
                         totalTime={task.totalTime === null ? 0 : task.totalTime}
+                        deleteTaskFunction={deleteTaskFunction}
                     />
                 </Row>
             ))}

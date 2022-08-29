@@ -4,11 +4,18 @@ import { Container, Col, Row } from 'react-bootstrap';
 import './index.css';
 
 const TimedTask = (props) => {
-    let { index, name, summary, dateStarted, totalTime } = props;
+    let { index, name, summary, dateStarted, totalTime, deleteTaskFunction } = props;
 
     if (!dateStarted) {
         dateStarted = moment.now();
     }
+
+    /*
+        TODO:
+        - Add full view
+        - Add delete button
+        - Add edit button
+    */
 
     return (
         <Container fluid

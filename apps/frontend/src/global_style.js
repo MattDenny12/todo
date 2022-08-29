@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Montserrat', sans-serif;
         font-weight: 400;
         font-size: 12px;
+        font-color: #373d3f;
     }
 `;
 
