@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
+import TaskForm from '../task_form';
 import './index.css';
-import Task from '../../../ducks/task';
 
 function padZero(str, targetLen) {
     str = '' + str;
 
-    while(str.length < targetLen) {
+    while (str.length < targetLen) {
         str = '0' + str;
     }
 
@@ -23,19 +23,20 @@ function formatTime(time) {
     return `${padZero(time, 2)}:${padZero(minutes, 2)}:${padZero(seconds, 2)}`;
 }
 
-class TimedTask extends React.Component {
+class Task extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             expanded: false,
-            focused: false,
+            editing: false,
+            focused: props.focused || false,
             index: props.index,
             name: props.name,
             summary: props.summary,
-            dateStarted: props.dateStarted,
-            totalTime: props.totalTime
+            dateStarted: props.dateStarted || 0,
+            totalTime: props.totalTime || 0
         };
 
         this.interval = null;
@@ -43,27 +44,56 @@ class TimedTask extends React.Component {
         this.toggleExpand = this.toggleExpand.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleCancelEdit = this.handleCancelEdit.bind(this);
+        this.handleSubmitEdit = this.handleSubmitEdit.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
         this.handleUnfocus = this.handleUnfocus.bind(this);
-        this.getTaskObject = this.getTaskObject.bind(this);
         this.tick = this.tick.bind(this);
+        this.toJSON = this.toJSON.bind(this);
     }
 
-    getTaskObject() {
-        return new Task()
-            .name(this.state.name)
-            .summary(this.state.summary)
-            .dateStarted(this.state.dateStarted)
-            .totalTime(this.state.totalTime)
-            .task;
+    toJSON() {
+        return {
+            index: this.state.index,
+            name: this.state.name,
+            summary: this.state.summary,
+            dateStarted: this.state.dateStarted,
+            totalTime: this.state.totalTime,
+            focused: this.state.focused
+        };
+    }
+
+    componentDidMount() {
+        if (this.state.focused) {
+            this.interval = setInterval(() => this.tick(), 1000);
+        }
     }
 
     handleDelete() {
+        clearInterval(this.interval);
         this.props.deleteTaskFunction(this.state.index)
     }
 
     handleEdit() {
-        
+        this.setState({ editing: true });
+    }
+
+    handleCancelEdit() {
+        this.setState({ editing: false });
+    }
+
+    handleSubmitEdit(newTaskDetails) {
+        if (!newTaskDetails) {
+            return;
+        }
+
+        let updatedTask = this.toJSON();
+        updatedTask.name = newTaskDetails.name;
+        updatedTask.summary = newTaskDetails.summary;
+        updatedTask.editing = false;
+
+        this.setState(updatedTask);
+        this.props.updateTaskFunction(updatedTask);
     }
 
     handleFocus() {
@@ -77,16 +107,11 @@ class TimedTask extends React.Component {
     }
 
     tick() {
-        let newTime = this.state.totalTime + 1;
+        let updatedTask = this.toJSON();
+        updatedTask.totalTime = this.state.totalTime + 1;
 
-        this.setState({ totalTime: newTime });
-
-        let updatedTask = this.getTaskObject();
-        updatedTask.totalTime = newTime;
-
-        this.props.updateTaskFunction(
-            this.state.index, 
-            updatedTask);
+        this.setState({ totalTime: updatedTask.totalTime });
+        this.props.updateTaskFunction(updatedTask);
     }
 
     toggleExpand() {
@@ -94,7 +119,7 @@ class TimedTask extends React.Component {
     }
 
     render() {
-        let { index, name, summary, dateStarted } = this.state;
+        let { index, name, summary } = this.state;
 
         let focusButton = this.state.focused
             ? <button
@@ -108,10 +133,21 @@ class TimedTask extends React.Component {
                 Focus
             </button>
 
+        let expandButton = this.state.expanded
+            ? <div className='TaskOverlay'>
+                <button
+                    className='TaskOverlayCollapseButton'
+                    onClick={() => this.toggleExpand()}>
+                    Collapse
+                </button>
+            </div>
+            : <button
+                className='TaskOverlayExpandButton'
+                onClick={() => this.toggleExpand()} />
+
         let expandedForm = this.state.expanded
             ? <Row className='TaskButtonRow'>
-                <Col />
-                <Col xs='auto'>
+                <Col>
                     <button
                         className='TaskDeleteButton'
                         onClick={() => this.handleDelete()}>
@@ -131,11 +167,19 @@ class TimedTask extends React.Component {
             </Row>
             : null;
 
-        return (
-            <Container fluid
+        let card = this.state.editing
+            ? <TaskForm
+                title='Edit Todo:'
+                id='editTaskForm'
+                defaultName={this.state.name}
+                defaultSummary={this.state.summary}
+                cancelFunction={this.handleCancelEdit}
+                submitFunction={this.handleSubmitEdit}
+            />
+            : <Container fluid
                 id={`task[${index}]`}
-                className='TaskCompact'
-                onDoubleClick={() => this.toggleExpand()}>
+                className='TaskCompact'>
+                {expandButton}
                 <Container>
                     <Row className='TaskTopRow'>
                         <Col xs="auto"
@@ -168,26 +212,28 @@ class TimedTask extends React.Component {
                     </Row>
                     <Row>
                         {/* 
-                        <div
-                            className="TaskCol TaskStartDate"
-                            id={`task[${index}].dateStarted`}>
-                            {moment(dateStarted).format('YYYY-MM-DD')}
-                        </div>
-                        */}
+                    <div
+                        className="TaskCol TaskStartDate"
+                        id={`task[${index}].dateStarted`}>
+                        {moment(dateStarted).format('YYYY-MM-DD')}
+                    </div>
+                    */}
                     </Row>
                     {expandedForm}
                 </Container>
             </Container>
-        )
+
+        return card;
     }
 }
 
-export const defaultProps = {
-    index: 0,
+Task.defaultProps = {
+    focused: false,
+    index: null,
     name: '',
     summary: '',
-    dateStarted: null,
+    dateStarted: require('moment').now(),
     totalTime: 0
 };
 
-export default TimedTask;
+export default Task;

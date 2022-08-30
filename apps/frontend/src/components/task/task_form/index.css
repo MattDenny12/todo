@@ -18,7 +18,7 @@
 
 .FormLabel {
     color: #373D3F;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 400;
     width: 110px;
     text-align: right;
@@ -125,6 +125,15 @@
 
 .FromErrorMessage {
     color: orange;
-    font-weight: 400;
+    font-weight: 600;
     font-style: italic;
+}
+
+@media (max-width: 575.98px) {
+    .FormLabel {
+        font-size: 14px;
+        width: 60px;
+        padding-right: 0px;
+
+    }
 }

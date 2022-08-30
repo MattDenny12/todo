@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
-import TimedTask from '../timed_task';
+import Task from '../task';
 
 const TaskList = (props) => {
 
@@ -16,11 +16,12 @@ const TaskList = (props) => {
                 <Row 
                     className='TaskBannerRow' 
                     key={`task[${index}]`}>
-                    <TimedTask 
+                    <Task 
                         index={index}
                         name={task.name}
                         summary={task.summary}
                         dateStarted={task.dateStarted}
+                        focused={task.focused}
                         totalTime={task.totalTime === null ? 0 : task.totalTime}
                         deleteTaskFunction={deleteTaskFunction}
                         updateTaskFunction={updateTaskFunction}

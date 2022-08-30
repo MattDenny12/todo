@@ -27,10 +27,10 @@ const GlobalStyle = createGlobalStyle`
         font-size: 20px;
     };
 
-    div span body {
+    div, span, body, button {
         font-family: 'Montserrat', sans-serif;
-        font-weight: 400;
-        font-size: 12px;
+        font-weight: 600;
+        font-size: 14px;
         font-color: #373d3f;
     }
 `;

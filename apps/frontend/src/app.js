@@ -1,11 +1,10 @@
 // Ducks and such
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
-import Task from './ducks/task';
 
 // Components
 import TaskList from './components/task/task_list';
-import TimedTaskForm from './components/task/timed_task_form';
+import TaskForm from './components/task/task_form';
 
 // Styles
 import './app.css';
@@ -39,12 +38,13 @@ function loadTasks() {
     }
 
     return [
-        new Task()
-            .name('Create a new Todo!')
-            .summary('Edit this Todo by clicking on it or create a new one by clicking on the button below.')
-            .dateStarted(require('moment').now())
-            .totalTime(0)
-            .task
+        {
+            name: 'Create a new Todo!',
+            summary: 'Edit this Todo by clicking on it or create a new one by clicking on the button below.',
+            dateStarted: require('moment').now(),
+            totalTime: 0,
+            focused: false
+        }
     ];
 }
 
@@ -98,11 +98,14 @@ class App extends React.Component {
         }
     }
 
-    handleUpdateTask(index, updatedTask) {
+    /**
+     * @param {Task} updatedTask 
+     */
+    handleUpdateTask(updatedTask) {
         let newTaskList = this.state.taskList;
 
-        if (index in newTaskList) {
-            newTaskList[index] = updatedTask;
+        if (updatedTask.index in newTaskList) {
+            newTaskList[updatedTask.index] = updatedTask;
             this._updateTaskList(newTaskList);
         }
     }
@@ -122,10 +125,11 @@ class App extends React.Component {
     render() {
         let addTaskForm =
             this.state.addingTask
-                ? <TimedTaskForm 
-                    addTaskFunction={this.handleAddTask} 
-                    cancelFunction={this.handleAddTaskCancel}
-                    />
+                ? <Row className='TaskBannerRow'>  
+                    <TaskForm 
+                        submitFunction={this.handleAddTask} 
+                        cancelFunction={this.handleAddTaskCancel}/>
+                </Row>
                 : null;
 
         let addTaskButton =
