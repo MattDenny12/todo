@@ -28,9 +28,24 @@
     }
 }
 
+.AppContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0px;
+    align-items: center;
+}
+
+div.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 .TaskBannerRow {
-    padding-bottom: 0px;
-    padding-top: 20px;
+    padding: 0px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 100%;
+    margin: 0px;
     height: auto;
 }
 

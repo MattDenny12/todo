@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import Task from '../task';
 
 const TaskList = (props) => {
 
-    let { taskList, deleteTaskFunction, updateTaskFunction } = props;
+    let { taskList, deleteTaskFunction, updateTaskFunction, completeTaskFunction } = props;
 
     if (!taskList) {
         taskList = [];
@@ -12,19 +12,23 @@ const TaskList = (props) => {
 
     return (
         <div id='taskList'>
-            {taskList.map((task, index) => (
+            {taskList.map((task) => (
                 <Row 
                     className='TaskBannerRow' 
-                    key={`task[${index}]`}>
+                    key={`task[${task.index}]`}>
                     <Task 
-                        index={index}
+                        key={task.uuid}
+                        uuid={task.uuid}
+                        index={task.index}
                         name={task.name}
                         summary={task.summary}
                         dateStarted={task.dateStarted}
+                        expanded={task.expanded}
                         focused={task.focused}
                         totalTime={task.totalTime === null ? 0 : task.totalTime}
                         deleteTaskFunction={deleteTaskFunction}
                         updateTaskFunction={updateTaskFunction}
+                        completeTaskFunction={completeTaskFunction}
                     />
                 </Row>
             ))}

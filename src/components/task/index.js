@@ -1,6 +1,12 @@
+// Framework stuff
 import React from 'react';
+
+// Components
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Container, Col, Row } from 'react-bootstrap';
 import TaskForm from '../task_form';
+
+// Styles
 import './index.css';
 
 function padZero(str, targetLen) {
@@ -28,10 +34,12 @@ class Task extends React.Component {
     constructor(props) {
         super(props);
 
+        this._uuid = props.uuid || crypto.randomUUID();
+
         this.state = {
-            expanded: false,
             editing: false,
-            focused: props.focused || false,
+            expanded: props.expanded,
+            focused: props.focused,
             index: props.index,
             name: props.name,
             summary: props.summary,
@@ -42,6 +50,7 @@ class Task extends React.Component {
         this.interval = null;
 
         this.toggleExpand = this.toggleExpand.bind(this);
+        this.handleComplete = this.handleComplete.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleCancelEdit = this.handleCancelEdit.bind(this);
@@ -54,12 +63,14 @@ class Task extends React.Component {
 
     toJSON() {
         return {
+            uuid: this._uuid,
             index: this.state.index,
             name: this.state.name,
             summary: this.state.summary,
             dateStarted: this.state.dateStarted,
             totalTime: this.state.totalTime,
-            focused: this.state.focused
+            focused: this.state.focused,
+            expanded: this.state.expanded
         };
     }
 
@@ -67,6 +78,11 @@ class Task extends React.Component {
         if (this.state.focused) {
             this.interval = setInterval(() => this.tick(), 1000);
         }
+    }
+
+    handleComplete() {
+        clearInterval(this.interval);
+        this.props.completeTaskFunction(this.toJSON());
     }
 
     handleDelete() {
@@ -87,23 +103,37 @@ class Task extends React.Component {
             return;
         }
 
+        this.setState({
+            name: newTaskDetails.name,
+            summary: newTaskDetails.summary,
+            editing: false
+        });
+
         let updatedTask = this.toJSON();
         updatedTask.name = newTaskDetails.name;
         updatedTask.summary = newTaskDetails.summary;
-        updatedTask.editing = false;
 
-        this.setState(updatedTask);
         this.props.updateTaskFunction(updatedTask);
     }
 
     handleFocus() {
         this.interval = setInterval(() => this.tick(), 1000);
         this.setState({ focused: true });
+        
+        let updatedTask = this.toJSON();
+        updatedTask.focused = true;
+
+        this.props.updateTaskFunction(updatedTask);
     }
 
     handleUnfocus() {
         clearInterval(this.interval);
         this.setState({ focused: false });
+
+        let updatedTask = this.toJSON();
+        updatedTask.focused = false;
+
+        this.props.updateTaskFunction(updatedTask);
     }
 
     tick() {
@@ -115,7 +145,14 @@ class Task extends React.Component {
     }
 
     toggleExpand() {
-        this.setState({ expanded: !this.state.expanded });
+        let expanded = !this.state.expanded;
+
+        this.setState({ expanded: expanded });
+
+        let updatedTask = this.toJSON();
+        updatedTask.expanded = expanded;
+
+        this.props.updateTaskFunction(updatedTask);
     }
 
     render() {
@@ -134,13 +171,9 @@ class Task extends React.Component {
             </button>
 
         let expandButton = this.state.expanded
-            ? <div className='TaskOverlay'>
-                <button
-                    className='TaskOverlayCollapseButton'
-                    onClick={() => this.toggleExpand()}>
-                    Collapse
-                </button>
-            </div>
+            ? <button
+                className='TaskOverlayCollapseButton'
+                onClick={() => this.toggleExpand()}/>
             : <button
                 className='TaskOverlayExpandButton'
                 onClick={() => this.toggleExpand()} />
@@ -176,59 +209,75 @@ class Task extends React.Component {
                 cancelFunction={this.handleCancelEdit}
                 submitFunction={this.handleSubmitEdit}
             />
-            : <Container fluid
+            : <div
                 id={`task[${index}]`}
-                className='TaskCompact'>
-                {expandButton}
-                <Container>
-                    <Row className='TaskTopRow'>
-                        <Col xs="auto"
-                            className="TaskTopCol">
-                            <div className='TaskCompleteContainer'>
-                                <div className='TaskCompleteIndicator'>
-                                    {/* Finish Radio Button */}
-                                </div>
-                            </div>
-                        </Col>
-                        <Col className='TaskTopCol'>
+                className='TaskCompact'
+                style={{
+                    paddingLeft: 75
+                }}>
+                <button 
+                    className='CompleteTaskButton'
+                    onClick={() => this.handleComplete()}>
+                    <CheckCircleIcon 
+                        style={{
+                            fontSize: 'xx-large',
+                            color: '#f1f1f1'
+                        }}
+                    />
+                </button>
+                <Container 
+                    style={{
+                        position: 'relative'
+                    }}>
+                    {expandButton}
+                    <Row 
+                        style={{
+                            height: 'auto'
+                        }}>
+                        <Col 
+                            style={{
+                                padding: 0,
+                                paddingLeft: 10
+                            }}>
                             <div className='TaskTitle'
                                 id={`task[${index}].name`}>
                                 {name}
                             </div>
                         </Col>
-                        <Col className="TaskTopCol">
+                        <Col 
+                            xs='auto'
+                            style={{
+                                paddingRight: 0
+                            }}>
                             <div className='TimedTaskTimeContainer'
                                 id={`task[${index}].totalTime`}>
                                 {formatTime(this.state.totalTime)}
                             </div>
                         </Col>
                     </Row>
-                    <Row>
-                        <div className="TaskCol TaskSummary"
+                    <Row style={{ paddingTop: 5 }}>
+                        <div 
+                            style={{
+                                maxHeight: this.state.expanded ? 'none' : '4em'
+                            }}
+                            className="TaskSummary"
                             xs="auto"
                             id={`task[${index}].summary`}>
                             {summary}
                         </div>
                     </Row>
-                    <Row>
-                        {/* 
-                    <div
-                        className="TaskCol TaskStartDate"
-                        id={`task[${index}].dateStarted`}>
-                        {moment(dateStarted).format('YYYY-MM-DD')}
-                    </div>
-                    */}
-                    </Row>
                     {expandedForm}
                 </Container>
-            </Container>
+            </div>
 
         return card;
     }
 }
 
 Task.defaultProps = {
+    uuid: crypto.randomUUID(),
     focused: false,
+    expanded: false,
     index: null,
     name: '',
     summary: '',

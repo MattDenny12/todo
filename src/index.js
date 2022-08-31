@@ -11,8 +11,8 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    <Container>
+    <div>
         <GlobalStyle />
         <App />
-    </Container>
+    </div>
 );

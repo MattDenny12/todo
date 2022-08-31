@@ -44,10 +44,7 @@ class TaskForm extends React.Component {
 
         this.props.submitFunction({
             name: formElements.name.value,
-            summary: formElements.summary.value,
-            dateStarted: require('moment').now(),
-            totalTime: 0,
-            focused: false
+            summary: formElements.summary.value
         });
 
         this._resetForm(formElements);
@@ -109,6 +106,8 @@ class TaskForm extends React.Component {
                         </Col>
                         <Col className='FormInputContainer'>
                             <input
+                                autoFocus
+                                defaultValue={this.props.defaultName}
                                 name='name'
                                 className='FormInput' />
                         </Col>
@@ -121,8 +120,10 @@ class TaskForm extends React.Component {
                                 </div>
                         </Col>
                         <Col className='FormInputContainer'>
-                            <input
+                            <textarea
+                                rows={3}
                                 name='summary'
+                                defaultValue={this.props.defaultSummary}
                                 className='FormInput' />
                         </Col>
                     </Row>
@@ -130,6 +131,7 @@ class TaskForm extends React.Component {
                         <Col />
                         <Col xs='auto'>
                             <button
+                                type='button'
                                 onClick={() => this.handleCancel()}
                                 className='FormCancelButton'>
                                 Cancel

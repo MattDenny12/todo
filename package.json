@@ -6,6 +6,9 @@
   "homepage": "",
   "main": "index.js",
   "dependencies": {
+    "@mui/icons-material": "latest",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-bootstrap": "latest",
