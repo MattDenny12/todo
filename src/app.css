@@ -29,7 +29,7 @@
 }
 
 .AppContainer {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
     padding: 0px;
     align-items: center;
@@ -41,9 +41,9 @@ div.row {
 }
 
 .TaskBannerRow {
-    padding: 0px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding: 10px;
+    padding-bottom: 20px;
+    padding-top: 0px;
     width: 100%;
     margin: 0px;
     height: auto;

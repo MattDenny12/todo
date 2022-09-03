@@ -9,7 +9,7 @@ class Stats extends React.Component {
 
     render() {
         return (
-            <Container 
+            <Container
                 style={{
                     position: 'absolute',
                     bottom: 20,
@@ -22,12 +22,12 @@ class Stats extends React.Component {
                     boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.3)'
                 }}>
 
-                <Row 
+                <Row
                     style={{
                         padding: 5,
                         fontSize: 16,
                         textAlign: 'center'
-                    }}> 
+                    }}>
                     <a>Stats</a>
                 </Row>
 
@@ -39,7 +39,7 @@ class Stats extends React.Component {
                         borderBottomLeftRadius: 5,
                         borderBottomRightRadius: 5
                     }}>
-                    <Row 
+                    <Row
                         className='StatRow'>
                         {`Tasks Completed: ${this.props.tasksCompleted}`}
                     </Row>
@@ -47,6 +47,10 @@ class Stats extends React.Component {
             </Container>
         );
     }
+}
+
+Stats.defaultProps = {
+    tasksCompleted: 0
 }
 
 export default Stats;

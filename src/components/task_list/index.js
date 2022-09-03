@@ -13,17 +13,16 @@ const TaskList = (props) => {
     return (
         <div id='taskList'>
             {taskList.map((task) => (
-                <Row 
-                    className='TaskBannerRow' 
+                <Row
+                    className='TaskBannerRow'
                     key={`task[${task.index}]`}>
-                    <Task 
+                    <Task
                         key={task.uuid}
                         uuid={task.uuid}
                         index={task.index}
                         name={task.name}
                         summary={task.summary}
                         dateStarted={task.dateStarted}
-                        expanded={task.expanded}
                         focused={task.focused}
                         totalTime={task.totalTime === null ? 0 : task.totalTime}
                         deleteTaskFunction={deleteTaskFunction}
@@ -36,8 +35,11 @@ const TaskList = (props) => {
     );
 }
 
-export const defaultProps = {
-    taskList: []
+TaskList.defaultProps = {
+    taskList: [],
+    deleteTaskFunction: null,
+    updateTaskFunction: null,
+    completeTaskFunction: null
 };
 
 export default TaskList;

@@ -1,5 +1,10 @@
+// Frameworks and such
 import React from 'react';
+
+// Components
 import { Container, Col, Row } from 'react-bootstrap';
+
+// Styling
 import './index.css';
 
 class TaskForm extends React.Component {
@@ -73,6 +78,7 @@ class TaskForm extends React.Component {
      * @returns the form that should be rendered.
      */
     render() {
+        // Conditional Rendering for the name form validation error
         let nameErrorMessage = this.state.nameValidationError
             ? <Row className='FormRow'>
                 <Col xs='auto'>
@@ -86,6 +92,7 @@ class TaskForm extends React.Component {
             </Row>
             : null;
 
+        // Mainline rendering for the form
         return (
             <Container
                 fluid
@@ -102,7 +109,7 @@ class TaskForm extends React.Component {
                         <Col xs='auto'>
                             <div className='FormLabel'>
                                 name:
-                                </div>
+                            </div>
                         </Col>
                         <Col className='FormInputContainer'>
                             <input
@@ -117,7 +124,7 @@ class TaskForm extends React.Component {
                         <Col xs='auto'>
                             <div className='FormLabel'>
                                 summary:
-                                </div>
+                            </div>
                         </Col>
                         <Col className='FormInputContainer'>
                             <textarea
@@ -135,14 +142,14 @@ class TaskForm extends React.Component {
                                 onClick={() => this.handleCancel()}
                                 className='FormCancelButton'>
                                 Cancel
-                                </button>
+                            </button>
                         </Col>
                         <Col xs='auto'>
                             <button
                                 type='submit'
                                 className='FormSubmitButton'>
                                 Submit
-                                </button>
+                            </button>
                         </Col>
                     </Row>
                 </form>

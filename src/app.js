@@ -12,6 +12,11 @@ import Stats from './components/stats';
 import './app.css';
 import moment from 'moment';
 
+/**
+ * Retrieves a cookie with the given name.
+ * @param {String} cookieName The name of the cookie to retrieve.
+ * @returns The contents of the cookie if it exists, null otherwise.
+ */
 function getCookie(cookieName) {
     cookieName = cookieName + '=';
 
@@ -55,7 +60,9 @@ function loadTasks() {
         {
             index: 0,
             name: 'Create a new Todo!',
-            summary: 'Edit this Todo by clicking on it or create a new one by clicking on the button below.',
+            summary: 'Edit this Todo by clicking on it to expand it and clicking the "Edit" button. ' +
+                    'Or, create a new one by clicking on the button below. To mark a task as completed, ' + 
+                    'click on the gray button on the left hand side.',
             dateStarted: require('moment').now(),
             totalTime: 0,
             focused: false,
@@ -102,6 +109,7 @@ class App extends React.Component {
         }
 
         this.taskCompleteAudio = document.getElementById('taskCompleteAudio');
+        this.taskCompleteAudio.volume = 0.01;
 
         this.handleAddTask = this.handleAddTask.bind(this);
         this.handleAddTaskCancel = this.handleAddTaskCancel.bind(this);
@@ -122,7 +130,6 @@ class App extends React.Component {
         newTask.dateStarted = moment.now();
         newTask.totalTime = 0;
         newTask.focused = false;
-        newTask.expanded = false;
 
         newTaskList.push(newTask);
 
@@ -130,6 +137,9 @@ class App extends React.Component {
         this.setState({ addingTask: false });
     }
 
+    /**
+     * Handles the cancellation of adding a task
+     */
     handleAddTaskCancel() {
         this.setState({ addingTask: false });
     }
@@ -156,7 +166,8 @@ class App extends React.Component {
     }
 
     /**
-     * @param {Task} updatedTask 
+     * Handles the updating of a task. The provided task should be aware of and contain the correct index.
+     * @param {Object} updatedTask The task that is being updated.
      */
     handleUpdateTask(updatedTask) {
         let newTaskList = this.state.taskList;
@@ -167,6 +178,11 @@ class App extends React.Component {
         }
     }
 
+    /**
+     * Handles the completion of a task. Once a task has been completed, it will be added to the completed task list
+     * which only stores data required to restore the task. This will be added at a later date.
+     * @param {Object} task The task that has been completed.
+     */
     handleCompleteTask(task) {
         let newTaskList = [];
         let currentTaskList = this.state.taskList;
@@ -240,10 +256,6 @@ class App extends React.Component {
 
         return (
             <div id='app'>
-                <NavMenu />
-                <Stats 
-                    tasksCompleted={this.state.completedTaskList.length}
-                />
                 <Container
                     fluid
                     className='AppContainer'
@@ -262,6 +274,10 @@ class App extends React.Component {
                     {addTaskForm}
                     {addTaskButton}
                 </Container>
+                <NavMenu />
+                <Stats 
+                    tasksCompleted={this.state.completedTaskList.length}
+                />
             </div>
         )
     }

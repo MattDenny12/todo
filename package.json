@@ -6,16 +6,17 @@
   "homepage": "",
   "main": "index.js",
   "dependencies": {
-    "@mui/icons-material": "latest",
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-bootstrap": "latest",
-    "react-scripts": "latest",
+    "@mui/icons-material": "latest",
     "bootstrap": "^5.2.0",
-    "styled-components": "^5.3.5",
-    "moment": "latest"
+    "eslint": "^8.23.0",
+    "moment": "latest",
+    "react": "^18.0.0",
+    "react-bootstrap": "latest",
+    "react-dom": "^18.0.0",
+    "react-scripts": "latest",
+    "styled-components": "^5.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
