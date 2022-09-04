@@ -1,0 +1,27 @@
+.Accordion {
+    background-color: #eeeeee;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.AccordionHeader {
+    background-color: #fafafa;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    text-overflow: clip;
+}
+
+.AccordionHeader {
+    border-bottom-width: 2px;
+    border-bottom-color: #d1d1d1;
+}
+
+.AccordionIcon {
+    margin-right: 0px;
+    margin-left: auto;
+    display: inline-block;
+}
+
+.AccordionContent {
+    padding: 10px;
+}

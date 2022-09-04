@@ -3,6 +3,7 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 
 // Components
+import Accordion from './components/common/accordion'
 import TaskList from './components/task_list';
 import TaskForm from './components/task_form';
 import NavMenu from './components/nav_menu';
@@ -273,11 +274,26 @@ class App extends React.Component {
                     />
                     {addTaskForm}
                     {addTaskButton}
+                    <Row
+                        className='TaskBannerRow'>
+                        <Accordion
+                            header={`Completed Tasks ( ${this.state.completedTaskList.length} )`}>
+                            {this.state.completedTaskList.map((task, index) =>
+                                <Row>
+                                    {index != 0 && <div style={{ height: 10 }}/>}
+                                    <div
+                                        style={{
+                                            backgroundColor: '#fafafa',
+                                            padding: 10
+                                        }}>
+                                        {task.name}
+                                    </div>
+                                </Row>
+                            )}
+                        </Accordion>
+                    </Row>
                 </Container>
                 <NavMenu />
-                <Stats 
-                    tasksCompleted={this.state.completedTaskList.length}
-                />
             </div>
         )
     }

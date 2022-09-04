@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
 
     .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
         margin: 0px;
+        padding: 0px;
     }
 
     h1 {
@@ -31,7 +32,16 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Montserrat', sans-serif;
         font-weight: 600;
         font-size: 14px;
-        font-color: #373d3f;
+        color: #373d3f;
+        border-width: 0px;
+        border-radius: 5px;
+        border-style: solid;
+        outline-width: 0px;
+        outline-style: solid;
+    }
+
+    div.container {
+        padding: 0px;
     }
 `;
 

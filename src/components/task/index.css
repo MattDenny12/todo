@@ -1,30 +1,10 @@
-div.container {
-    padding: 0px;
-}
-
-.TaskCompact {
-    background-color: #fafafa;
-    border-color: #5555ff;
-    border-width: 0px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
-    width: 90%;
-    display: flex;
-    position: relative;
-    padding: 10px;
-    padding-left: 60px;
-    transition-duration: 0.1s;
-}
-
 .CompleteTaskButton {
     position: absolute;
     transition-duration: 0.1s;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     width: 75px;
     height: 100%;
-    border: none;
-    outline: none;
     padding: 0px;
     left: 0px;
     top: 0px;
@@ -160,9 +140,6 @@ div.container {
 
 .TaskOverlayExpandButton {
     position: absolute;
-    border-radius: 5px;
-    border-width: 0px;
-    outline-width: 0px;
     padding: 0px;
     opacity: 0;
     top: -10px;
@@ -174,9 +151,6 @@ div.container {
 
 .TaskOverlayCollapseButton {
     position: absolute;
-    border-radius: 5px;
-    border-width: 0px;
-    outline-width: 0px;
     padding: 0px;
     opacity: 0;
     top: -10px;

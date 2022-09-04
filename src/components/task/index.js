@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Components
+import Card from '../common/card';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { Container, Col, Row } from 'react-bootstrap';
@@ -242,11 +243,10 @@ class Task extends React.Component {
                 cancelFunction={() => this.setState({ editing: false })}
                 submitFunction={this.handleSubmitEdit}
             />
-            : <div
+            : <Card
                 id={`task[${index}]`}
-                className='TaskCompact'
                 style={{
-                    paddingLeft: 75
+                    paddingLeft:75
                 }}>
                 <button
                     className='CompleteTaskButton'
@@ -303,7 +303,7 @@ class Task extends React.Component {
                     </Row>
                     {expandedForm}
                 </Container>
-            </div>
+            </Card>
 
         return card;
     }

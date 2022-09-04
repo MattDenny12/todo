@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Components
+import Card from '../common/card';
 import { Container, Col, Row } from 'react-bootstrap';
 
 // Styling
@@ -94,66 +95,66 @@ class TaskForm extends React.Component {
 
         // Mainline rendering for the form
         return (
-            <Container
-                fluid
-                className='TaskFormContainer'>
-                <form
-                    id={this.props.id}
-                    onSubmit={(event) => this.handleSubmit(event)}>
-                    <Row className='FormTopRow'>
-                        <h1 className='FormTitle'>
-                            {this.props.title}
-                        </h1>
-                    </Row>
-                    <Row className='FormRow'>
-                        <Col xs='auto'>
-                            <div className='FormLabel'>
-                                name:
-                            </div>
-                        </Col>
-                        <Col className='FormInputContainer'>
-                            <input
-                                autoFocus
-                                defaultValue={this.props.defaultName}
-                                name='name'
-                                className='FormInput' />
-                        </Col>
-                    </Row>
-                    {nameErrorMessage}
-                    <Row className='FormRow'>
-                        <Col xs='auto'>
-                            <div className='FormLabel'>
-                                summary:
-                            </div>
-                        </Col>
-                        <Col className='FormInputContainer'>
-                            <textarea
-                                rows={3}
-                                name='summary'
-                                defaultValue={this.props.defaultSummary}
-                                className='FormInput' />
-                        </Col>
-                    </Row>
-                    <Row className='FormButtonRow'>
-                        <Col />
-                        <Col xs='auto'>
-                            <button
-                                type='button'
-                                onClick={() => this.handleCancel()}
-                                className='FormCancelButton'>
-                                Cancel
-                            </button>
-                        </Col>
-                        <Col xs='auto'>
-                            <button
-                                type='submit'
-                                className='FormSubmitButton'>
-                                Submit
-                            </button>
-                        </Col>
-                    </Row>
-                </form>
-            </Container>
+            <Card>
+                <Container>
+                    <form
+                        id={this.props.id}
+                        onSubmit={(event) => this.handleSubmit(event)}>
+                        <Row className='FormTopRow'>
+                            <h1 className='FormTitle'>
+                                {this.props.title}
+                            </h1>
+                        </Row>
+                        <Row className='FormRow'>
+                            <Col xs='auto'>
+                                <div className='FormLabel'>
+                                    name:
+                                </div>
+                            </Col>
+                            <Col className='FormInputContainer'>
+                                <input
+                                    autoFocus
+                                    defaultValue={this.props.defaultName}
+                                    name='name'
+                                    className='FormInput' />
+                            </Col>
+                        </Row>
+                        {nameErrorMessage}
+                        <Row className='FormRow'>
+                            <Col xs='auto'>
+                                <div className='FormLabel'>
+                                    summary:
+                                </div>
+                            </Col>
+                            <Col className='FormInputContainer'>
+                                <textarea
+                                    rows={3}
+                                    name='summary'
+                                    defaultValue={this.props.defaultSummary}
+                                    className='FormInput' />
+                            </Col>
+                        </Row>
+                        <Row className='FormButtonRow'>
+                            <Col />
+                            <Col xs='auto'>
+                                <button
+                                    type='button'
+                                    onClick={() => this.handleCancel()}
+                                    className='FormCancelButton'>
+                                    Cancel
+                                </button>
+                            </Col>
+                            <Col xs='auto'>
+                                <button
+                                    type='submit'
+                                    className='FormSubmitButton'>
+                                    Submit
+                                </button>
+                            </Col>
+                        </Row>
+                    </form>
+                </Container>
+            </Card>
         );
     }
 }
