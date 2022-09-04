@@ -38,7 +38,12 @@ class Accordion extends React.Component {
                 }}>
                 <button 
                     className="AccordionHeader"
-                    onClick={() => this.setActive(!this.state.active)}>
+                    onClick={() => this.setActive(!this.state.active)}
+                    style={this.state.active 
+                        ? {
+                            borderBottomWidth: 2
+                        } 
+                        : null}>
                     {header}
                     <div className="AccordionIcon">
                         {this.state.active ? <ExpandLessIcon /> : <ExpandMoreIcon />}

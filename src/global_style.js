@@ -43,6 +43,13 @@ const GlobalStyle = createGlobalStyle`
     div.container {
         padding: 0px;
     }
+
+    *:focus {
+        transition-duration: 0.1s;
+        outline-style: solid;
+        outline-width: 3px;
+        outline-color: #5555ff;
+    }
 `;
 
 export default GlobalStyle;

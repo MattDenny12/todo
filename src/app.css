@@ -29,7 +29,7 @@
 }
 
 .AppContainer {
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 20px;
     padding: 0px;
     align-items: center;
@@ -55,9 +55,6 @@ div.row {
     font-weight: 600;
     color: #5555ff;
     background-color: rgba(0, 0, 0, 0);
-    outline-color: #5555ff;
-    outline-width: 0px;
-    outline-style: solid;
     border-color: #5555ff;
     border-style: dashed;
     border-width: 3px;
@@ -71,6 +68,5 @@ div.row {
     color: #ffffff;
     background-color: #5555ff;
     border-color: #5555ff;
-    outline-width: 5px;
     box-shadow: 0px 9px 5px rgba(0, 0, 0, 0.3);
 }

@@ -1,0 +1,121 @@
+.CompleteTaskButton {
+    position: absolute;
+    transition-duration: 0.1s;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    width: 75px;
+    height: 100%;
+    padding: 0px;
+    left: 0px;
+    top: 0px;
+    background-color: #d1d1d1;
+}
+
+.CompleteTaskButton:hover {
+    background-color: #019649;
+}
+
+.TaskTitle {
+    color: #5555ff;
+    font-size: 28px;
+}
+
+.TaskSummary {
+    color: #999999;
+    text-overflow: clip;
+    font-style: italic;
+    white-space: pre-wrap;
+    overflow: hidden;
+    line-height: 18px;
+}
+
+.TaskFocusButton {
+    position: relative;
+    border-width: 0px;
+    border-radius: 5px;
+    outline: none;
+    background-color: #5555ff;
+    align-items: center;
+    color: #fafafa;
+    font-size: 18px;
+    width: 100%;
+    min-width: 100px;
+    height: 50px;
+    margin: auto;
+    margin-top: 10px;
+    transition-duration: 0.1s;
+    z-index: 2;
+}
+
+.TaskFocusButton:hover {
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.TaskEditButton {
+    position: relative;
+    border-width: 0px;
+    border-radius: 5px;
+    outline: none;
+    background-color: #e4e4e4;
+    align-items: center;
+    font-size: 18px;
+    width: 100%;
+    min-width: 100px;
+    height: 50px;
+    margin: auto;
+    margin-top: 10px;
+    transition-duration: 0.1s;
+    z-index: 2;
+}
+
+.TaskEditButton:hover {
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.TaskDeleteButton {
+    position: relative;
+    border-width: 0px;
+    border-radius: 5px;
+    outline: none;
+    background-color: #eb4242;
+    align-items: center;
+    color: #fafafa;
+    font-size: 18px;
+    width: 100%;
+    min-width: 100px;
+    height: 50px;
+    margin: auto;
+    margin-top: 10px;
+    transition-duration: 0.1s;
+    z-index: 2;
+}
+
+.TaskDeleteButton:hover {
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
+}
+
+.TaskOverlayExpandButton {
+    position: absolute;
+    background-color: transparent;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding: 0px;
+    top: -10px;
+    left: 0;
+    width: calc(100% + 10px);
+    height: calc(100% + 20px);
+    z-index: 1;
+}
+
+.TaskOverlayCollapseButton {
+    position: absolute;
+    background-color: transparent;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding: 0px;
+    top: -10px;
+    left: 0;
+    width: calc(100% + 10px);
+    height: calc(100% + 20px);
+    z-index: 1;
+}

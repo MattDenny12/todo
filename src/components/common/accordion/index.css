@@ -5,15 +5,11 @@
 
 .AccordionHeader {
     background-color: #fafafa;
+    border-color: #d1d1d1;
     width: 100%;
     padding: 10px;
     display: flex;
     text-overflow: clip;
-}
-
-.AccordionHeader {
-    border-bottom-width: 2px;
-    border-bottom-color: #d1d1d1;
 }
 
 .AccordionIcon {

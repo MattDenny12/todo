@@ -21,8 +21,7 @@ const Card = (props) => {
 }
 
 Card.defaultProps = {
-    className: 'DefaultCard',
-    style: {}
+    className: 'DefaultCard'
 }
 
 export default Card;

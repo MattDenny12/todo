@@ -1,13 +1,12 @@
 // Ducks and such
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
 
 // Components
-import Accordion from './components/common/accordion'
-import TaskList from './components/task_list';
-import TaskForm from './components/task_form';
-import NavMenu from './components/nav_menu';
-import Stats from './components/stats';
+import CompletedTaskAccordion from './components/task/completed_task_accordion';
+import TaskList from './components/task/task_list';
+import TaskForm from './components/task/task_form';
 
 // Styles
 import './app.css';
@@ -68,7 +67,7 @@ function loadTasks() {
             totalTime: 0,
             focused: false,
             expanded: false,
-            uuid: crypto.randomUUID()
+            uuid: uuidv4()
         }
     ];
 }
@@ -127,7 +126,7 @@ class App extends React.Component {
     handleAddTask(newTask) {
         let newTaskList = this.state.taskList;
         newTask.index = newTaskList.length;
-        newTask.uuid = crypto.randomUUID();
+        newTask.uuid = uuidv4();
         newTask.dateStarted = moment.now();
         newTask.totalTime = 0;
         newTask.focused = false;
@@ -233,18 +232,14 @@ class App extends React.Component {
      * Renders the application.
      */
     render() {
-        let addTaskForm =
+        let addTaskSection =
             this.state.addingTask
                 ? <Row className='TaskBannerRow'>
                     <TaskForm
                         submitFunction={this.handleAddTask}
                         cancelFunction={this.handleAddTaskCancel} />
                 </Row>
-                : null;
-
-        let addTaskButton =
-            !this.state.addingTask
-                ? <Row
+                : <Row
                     className='TaskBannerRow'>
                     <button
                         onClick={() => { this.setState({ addingTask: true }) }}
@@ -252,8 +247,7 @@ class App extends React.Component {
                         id='addTaskButton'>
                         + Add New Todo
                     </button>
-                </Row>
-                : null;
+                </Row>;
 
         return (
             <div id='app'>
@@ -272,28 +266,13 @@ class App extends React.Component {
                         updateTaskFunction={this.handleUpdateTask}
                         completeTaskFunction={this.handleCompleteTask}
                     />
-                    {addTaskForm}
-                    {addTaskButton}
+                    {addTaskSection}
                     <Row
                         className='TaskBannerRow'>
-                        <Accordion
-                            header={`Completed Tasks ( ${this.state.completedTaskList.length} )`}>
-                            {this.state.completedTaskList.map((task, index) =>
-                                <Row>
-                                    {index != 0 && <div style={{ height: 10 }}/>}
-                                    <div
-                                        style={{
-                                            backgroundColor: '#fafafa',
-                                            padding: 10
-                                        }}>
-                                        {task.name}
-                                    </div>
-                                </Row>
-                            )}
-                        </Accordion>
+                        <CompletedTaskAccordion 
+                            completedTaskList={this.state.completedTaskList} />
                     </Row>
                 </Container>
-                <NavMenu />
             </div>
         )
     }

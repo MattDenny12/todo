@@ -1,8 +1,9 @@
 // Framework stuff
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 // Components
-import Card from '../common/card';
+import Card from '../../common/card';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { Container, Col, Row } from 'react-bootstrap';
@@ -31,7 +32,7 @@ function formatTime(time) {
     return `${leftPadZero(time, 2)}:${leftPadZero(minutes, 2)}:${leftPadZero(seconds, 2)}`;
 }
 
-class Task extends React.Component {
+class TaskCard extends React.Component {
     #uuid;
     #interval;
 
@@ -50,7 +51,7 @@ class Task extends React.Component {
             totalTime: props.totalTime || 0
         };
 
-        this.#uuid = props.uuid || crypto.randomUUID();
+        this.#uuid = props.uuid;
         this.#interval = null;
 
         this.handleSubmitEdit = this.handleSubmitEdit.bind(this);
@@ -197,22 +198,24 @@ class Task extends React.Component {
 
         // Conditional rendering for the expanded form.
         let expandedForm = this.state.expanded
-            ? <Row className='TaskButtonRow'>
-                <Col>
+            ? <Row
+                xs={1}
+                sm={3}>
+                <Col className='TaskButtonCol'>
                     <button
                         className='TaskDeleteButton'
                         onClick={() => this.handleDelete()}>
                         Delete
                     </button>
                 </Col>
-                <Col xs='auto'>
+                <Col className='TaskButtonCol'>
                     <button
                         className='TaskEditButton'
                         onClick={() => this.setState({ editing: true })}>
                         Edit
                     </button>
                 </Col>
-                <Col xs='auto'>
+                <Col className='TaskButtonCol'>
                     {focusButton}
                 </Col>
             </Row>
@@ -246,7 +249,8 @@ class Task extends React.Component {
             : <Card
                 id={`task[${index}]`}
                 style={{
-                    paddingLeft:75
+                    paddingLeft: 75,
+                    paddingRight: 0
                 }}>
                 <button
                     className='CompleteTaskButton'
@@ -259,37 +263,16 @@ class Task extends React.Component {
                     style={{
                         position: 'relative'
                     }}>
-                    {expandButton}
+                    <Row>
+                        <div
+                            className='TaskTitle'
+                            id={`task[${index}].name`}>
+                            {name}
+                        </div>
+                    </Row>
                     <Row
                         style={{
-                            height: 'auto'
-                        }}>
-                        <Col
-                            style={{
-                                padding: 0,
-                                paddingLeft: 10
-                            }}>
-                            <div 
-                                className='TaskTitle'
-                                id={`task[${index}].name`}>
-                                {name}
-                            </div>
-                        </Col>
-                        <Col
-                            xs='auto'
-                            style={{
-                                paddingRight: 0
-                            }}>
-                            <div 
-                                className='TimedTaskTimeContainer'
-                                id={`task[${index}].totalTime`}>
-                                {formatTime(this.state.totalTime)}
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row 
-                        style={{ 
-                            paddingTop: 5 
+                            paddingTop: 5
                         }}>
                         <div
                             style={{
@@ -301,6 +284,16 @@ class Task extends React.Component {
                             {summary}
                         </div>
                     </Row>
+                    <Row>
+                        <div
+                            id={`task[${index}].totalTime`}
+                            style={{
+                                textAlign: 'right'
+                            }}>
+                            {formatTime(this.state.totalTime)}
+                        </div>
+                    </Row>
+                    {expandButton}
                     {expandedForm}
                 </Container>
             </Card>
@@ -309,8 +302,8 @@ class Task extends React.Component {
     }
 }
 
-Task.defaultProps = {
-    uuid: crypto.randomUUID(),
+TaskCard.defaultProps = {
+    uuid: uuidv4(),
     focused: false,
     expanded: false,
     index: null,
@@ -320,4 +313,4 @@ Task.defaultProps = {
     totalTime: 0
 };
 
-export default Task;
+export default TaskCard;

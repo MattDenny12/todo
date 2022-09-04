@@ -2,11 +2,12 @@
 import React from 'react';
 
 // Components
-import Card from '../common/card';
+import Card from '../../common/card';
 import { Container, Col, Row } from 'react-bootstrap';
 
 // Styling
 import './index.css';
+import { CollectionsBookmarkRounded } from '@mui/icons-material';
 
 class TaskForm extends React.Component {
     constructor(props) {
@@ -95,7 +96,11 @@ class TaskForm extends React.Component {
 
         // Mainline rendering for the form
         return (
-            <Card>
+            <Card
+                style={{
+                    paddingLeft: 0,
+                    paddingRight: 0
+                }}>
                 <Container>
                     <form
                         id={this.props.id}
@@ -106,11 +111,11 @@ class TaskForm extends React.Component {
                             </h1>
                         </Row>
                         <Row className='FormRow'>
-                            <Col xs='auto'>
-                                <div className='FormLabel'>
-                                    name:
-                                </div>
-                            </Col>
+                            <div className='FormLabel'>
+                                Name:
+                            </div>
+                        </Row>
+                        <Row>
                             <Col className='FormInputContainer'>
                                 <input
                                     autoFocus
@@ -121,11 +126,11 @@ class TaskForm extends React.Component {
                         </Row>
                         {nameErrorMessage}
                         <Row className='FormRow'>
-                            <Col xs='auto'>
-                                <div className='FormLabel'>
-                                    summary:
-                                </div>
-                            </Col>
+                            <div className='FormLabel'>
+                                Summary:
+                            </div>
+                        </Row>
+                        <Row>
                             <Col className='FormInputContainer'>
                                 <textarea
                                     rows={3}
@@ -134,9 +139,10 @@ class TaskForm extends React.Component {
                                     className='FormInput' />
                             </Col>
                         </Row>
-                        <Row className='FormButtonRow'>
-                            <Col />
-                            <Col xs='auto'>
+                        <Row
+                            xs={1}
+                            sm={2}>
+                            <Col>
                                 <button
                                     type='button'
                                     onClick={() => this.handleCancel()}
@@ -144,7 +150,7 @@ class TaskForm extends React.Component {
                                     Cancel
                                 </button>
                             </Col>
-                            <Col xs='auto'>
+                            <Col>
                                 <button
                                     type='submit'
                                     className='FormSubmitButton'>

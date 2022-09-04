@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
-import Task from '../task';
+import TaskCard from '../task_card';
 
 const TaskList = (props) => {
 
@@ -16,8 +16,7 @@ const TaskList = (props) => {
                 <Row
                     className='TaskBannerRow'
                     key={`task[${task.index}]`}>
-                    <Task
-                        key={task.uuid}
+                    <TaskCard
                         uuid={task.uuid}
                         index={task.index}
                         name={task.name}

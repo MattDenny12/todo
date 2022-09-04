@@ -9,6 +9,7 @@
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
+    "uuid": "latest",
     "bootstrap": "^5.2.0",
     "eslint": "^8.23.0",
     "moment": "latest",
