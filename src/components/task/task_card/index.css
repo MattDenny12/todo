@@ -15,11 +15,6 @@
     background-color: #019649;
 }
 
-.TaskTitle {
-    color: #5555ff;
-    font-size: 28px;
-}
-
 .TaskSummary {
     color: #999999;
     text-overflow: clip;

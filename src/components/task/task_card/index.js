@@ -1,6 +1,7 @@
 // Framework stuff
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { formatTime } from '../../../utils/string_utils';
 
 // Components
 import Card from '../../common/card';
@@ -11,26 +12,6 @@ import TaskForm from '../task_form';
 
 // Styles
 import './index.css';
-
-function leftPadZero(str, targetLen) {
-    str = '' + str;
-
-    while (str.length < targetLen) {
-        str = '0' + str;
-    }
-
-    return str;
-}
-
-function formatTime(time) {
-    let seconds = time % 60;
-    time = (time - seconds) / 60;
-
-    let minutes = time % 60;
-    time = (time - minutes) / 60;
-
-    return `${leftPadZero(time, 2)}:${leftPadZero(minutes, 2)}:${leftPadZero(seconds, 2)}`;
-}
 
 class TaskCard extends React.Component {
     #uuid;
@@ -47,8 +28,8 @@ class TaskCard extends React.Component {
             index: props.index,
             name: props.name,
             summary: props.summary,
-            dateStarted: props.dateStarted || 0,
-            totalTime: props.totalTime || 0
+            dateStarted: props.dateStarted,
+            totalTime: props.totalTime
         };
 
         this.#uuid = props.uuid;
@@ -264,10 +245,11 @@ class TaskCard extends React.Component {
                         position: 'relative'
                     }}>
                     <Row>
-                        <div
-                            className='TaskTitle'
-                            id={`task[${index}].name`}>
-                            {name}
+                        <div>
+                            <h2
+                                id={`task[${index}].name`}>
+                                {name}
+                            </h2>
                         </div>
                     </Row>
                     <Row
@@ -305,7 +287,6 @@ class TaskCard extends React.Component {
 TaskCard.defaultProps = {
     uuid: uuidv4(),
     focused: false,
-    expanded: false,
     index: null,
     name: '',
     summary: '',

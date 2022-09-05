@@ -20,7 +20,7 @@ class TaskForm extends React.Component {
         this.getFormElements = this.getFormElements.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
-        this._resetForm = this._resetForm.bind(this);
+        this._resetForm = this.#resetForm.bind(this);
     }
 
     /**
@@ -54,7 +54,7 @@ class TaskForm extends React.Component {
             summary: formElements.summary.value
         });
 
-        this._resetForm(formElements);
+        this.#resetForm(formElements);
         return false;
     }
 
@@ -62,7 +62,7 @@ class TaskForm extends React.Component {
      * Handles the cancellation of the add todo form.
      */
     handleCancel() {
-        this._resetForm(this.getFormElements());
+        this.#resetForm(this.getFormElements());
         this.props.cancelFunction();
     }
 
@@ -70,7 +70,7 @@ class TaskForm extends React.Component {
      * Resets all fields on the form so that they are empty.
      * @param {Object} formElements 
      */
-    _resetForm(formElements) {
+    #resetForm(formElements) {
         formElements.name.value = '';
         formElements.summary.value = '';
     }
@@ -105,12 +105,14 @@ class TaskForm extends React.Component {
                     <form
                         id={this.props.id}
                         onSubmit={(event) => this.handleSubmit(event)}>
-                        <Row className='FormTopRow'>
-                            <h1 className='FormTitle'>
-                                {this.props.title}
-                            </h1>
+                        <Row>
+                            <div>
+                                <h2>
+                                    {this.props.title}
+                                </h2>
+                            </div>
                         </Row>
-                        <Row className='FormRow'>
+                        <Row>
                             <div className='FormLabel'>
                                 Name:
                             </div>
@@ -125,7 +127,7 @@ class TaskForm extends React.Component {
                             </Col>
                         </Row>
                         {nameErrorMessage}
-                        <Row className='FormRow'>
+                        <Row>
                             <div className='FormLabel'>
                                 Summary:
                             </div>

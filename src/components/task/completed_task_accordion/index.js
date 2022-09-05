@@ -5,9 +5,6 @@ import React from "react";
 import Accordion from '../../common/accordion';
 import CompletedTaskCard from '../completed_task_card';
 
-// Styles
-import "./index.css";
-
 class CompletedTaskAccordion extends React.Component {
     constructor(props) {
         super(props);

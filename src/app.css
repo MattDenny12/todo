@@ -64,6 +64,12 @@ div.row {
     transition-duration: 0.1s;
 }
 
+@media (max-width: 575.98px) {
+    .AddTaskButton {
+        font-size: 20px;
+    }
+}
+
 .AddTaskButton:hover {
     color: #ffffff;
     background-color: #5555ff;

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import { getCookie, setCookie } from './utils/document_utils';
 
 // Components
 import CompletedTaskAccordion from './components/task/completed_task_accordion';
@@ -12,88 +13,10 @@ import TaskForm from './components/task/task_form';
 import './app.css';
 import moment from 'moment';
 
-/**
- * Retrieves a cookie with the given name.
- * @param {String} cookieName The name of the cookie to retrieve.
- * @returns The contents of the cookie if it exists, null otherwise.
- */
-function getCookie(cookieName) {
-    cookieName = cookieName + '=';
-
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let cookieList = decodedCookie.split(';');
-
-    for (let i = 0; i < cookieList.length; i++) {
-        let cookie = cookieList[i];
-
-        while (cookie.charAt(0) == ' ') {
-            cookie = cookie.substring(1);
-        }
-
-        if (cookie.indexOf(cookieName) == 0) {
-            return cookie.substring(cookieName.length, cookie.length);
-        }
-    }
-
-    return null;
-}
-
-/**
- * Stores the current task list in cookies.
- * @param {JSON} taskList The task list to be stored in the cookies.
- */
-function storeTasks(taskList) {
-    document.cookie = `taskList=${JSON.stringify(taskList)}`;
-}
-
-/**
- * Loads the task list from the cookies, or returns the generic task list if no cookies could be found.
- */
-function loadTasks() {
-    let cookie = getCookie('taskList');
-    
-    if (cookie) {
-        return JSON.parse(cookie);
-    }
-
-    return [
-        {
-            index: 0,
-            name: 'Create a new Todo!',
-            summary: 'Edit this Todo by clicking on it to expand it and clicking the "Edit" button. ' +
-                    'Or, create a new one by clicking on the button below. To mark a task as completed, ' + 
-                    'click on the gray button on the left hand side.',
-            dateStarted: require('moment').now(),
-            totalTime: 0,
-            focused: false,
-            expanded: false,
-            uuid: uuidv4()
-        }
-    ];
-}
-
-/**
- * Stores the completed tasks as a cookie.
- * @param {JSON} taskList The list of completed tasks.
- */
-function storeCompletedTasks(taskList) {
-    document.cookie = `completedTasks=${JSON.stringify(taskList)}`;
-}
-
-/**
- * @returns The completed task list from the cookies, if it exists.
- */
-function loadCompletedTasks() {
-    let cookie = getCookie('completedTasks')
-
-    if (cookie) {
-        return JSON.parse(cookie);
-    } else {
-        return [];
-    }
-}
-
 class App extends React.Component {
+
+    #COMPLETED_TASKS_COOKIE = "completedTasks";
+    #TASK_LIST_COOKIE = "taskList"; 
 
     /**
      * Constructor for the react application.
@@ -103,8 +26,8 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            taskList: loadTasks(),
-            completedTaskList: loadCompletedTasks(),
+            taskList: this.loadTasks(),
+            completedTaskList: this.loadCompletedTasks(),
             addingTask: false
         }
 
@@ -116,7 +39,53 @@ class App extends React.Component {
         this.handleDeleteTask = this.handleDeleteTask.bind(this);
         this.handleUpdateTask = this.handleUpdateTask.bind(this);
         this.handleCompleteTask = this.handleCompleteTask.bind(this);
-        this._updateTaskList = this._updateTaskList.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateTitle();
+    }
+    
+    /**
+     * Loads the task list from the cookies, or returns the generic task list if no cookies could be found.
+     */
+    loadTasks() {
+        let cookie = getCookie('taskList');
+        
+        if (cookie) {
+            return JSON.parse(cookie);
+        }
+
+        return [
+            {
+                index: 0,
+                name: 'Create a new Todo!',
+                summary: 'Edit this Todo by clicking on it to expand it and clicking the "Edit" button. ' +
+                        'Or, create a new one by clicking on the button below. To mark a task as completed, ' + 
+                        'click on the gray button on the left hand side.',
+                dateStarted: require('moment').now(),
+                totalTime: 0,
+                focused: false,
+                expanded: false,
+                uuid: uuidv4()
+            }
+        ];
+    }
+
+    /**
+     * @returns The completed task list from the cookies, if it exists.
+     */
+    loadCompletedTasks() {
+        let cookie = getCookie('completedTasks')
+    
+        if (cookie) {
+            return JSON.parse(cookie);
+        } else {
+            return [];
+        }
+    }
+
+    updateTitle() {
+        document.title = `Todo - Tasks Completed: ${this.state.completedTaskList.length}`;
     }
 
     /**
@@ -133,7 +102,7 @@ class App extends React.Component {
 
         newTaskList.push(newTask);
 
-        this._updateTaskList(newTaskList);
+        this.#updateTaskList(newTaskList);
         this.setState({ addingTask: false });
     }
 
@@ -162,7 +131,7 @@ class App extends React.Component {
             }
         }
 
-        this._updateTaskList(newTaskList);
+        this.#updateTaskList(newTaskList);
     }
 
     /**
@@ -174,7 +143,7 @@ class App extends React.Component {
 
         if (updatedTask.index in newTaskList) {
             newTaskList[updatedTask.index] = updatedTask;
-            this._updateTaskList(newTaskList);
+            this.#updateTaskList(newTaskList);
         }
     }
 
@@ -214,18 +183,19 @@ class App extends React.Component {
             completedTaskList: newCompletedTaskList
         });
 
-        storeCompletedTasks(newCompletedTaskList);
-        storeTasks(newTaskList);
+        setCookie(this.#COMPLETED_TASKS_COOKIE, JSON.stringify(newCompletedTaskList));
+        setCookie(this.#TASK_LIST_COOKIE, JSON.stringify(newTaskList));
         this.taskCompleteAudio.play();
+        this.updateTitle();
     }
 
     /**
      * Updates the task list and stores the new task list in the cookies.
      * @param {Array} newTaskList The new task list that will be used to updated the current task list.
      */
-    _updateTaskList(newTaskList) {
+    #updateTaskList(newTaskList) {
         this.setState({ taskList: newTaskList });
-        storeTasks(newTaskList);
+        setCookie(this.#TASK_LIST_COOKIE, JSON.stringify(newTaskList));
     }
 
     /**

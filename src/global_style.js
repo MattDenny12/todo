@@ -6,7 +6,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-        margin: 0px;
+        margin-top: 5px;
+        margin-bottom: 5px;
         padding: 0px;
     }
 
@@ -19,7 +20,8 @@ const GlobalStyle = createGlobalStyle`
     h2 {
         font-family: 'Montserrat', sans-serif;
         font-weight: 600;
-        font-size: 28px;
+        font-size: 24px;
+        color: #5555ff;
     };
 
     h3 {
@@ -27,6 +29,20 @@ const GlobalStyle = createGlobalStyle`
         font-weight: 600;
         font-size: 20px;
     };
+
+    @media (max-width: 575.98px) {
+        h1 {
+            font-size: 24px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+    }
 
     div, span, body, button {
         font-family: 'Montserrat', sans-serif;

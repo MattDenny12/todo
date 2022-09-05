@@ -1,12 +1,9 @@
-.FormTitle {
-    color: #5555ff;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 0px;
-}
-
 .FormLabel {
     font-size: 18px;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    height: auto;
 }
 
 .FormInput {
@@ -73,16 +70,6 @@
 
 .FormCancelButton:hover {
     box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.3);
-}
-
-.FormRow {
-    padding: 0px;
-    padding-top: 10px;
-    height: auto;
-}
-
-.FormTopRow {
-    padding: 0px;
 }
 
 .FromErrorMessage {
