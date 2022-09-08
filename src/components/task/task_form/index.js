@@ -7,7 +7,6 @@ import { Container, Col, Row } from 'react-bootstrap';
 
 // Styling
 import './index.css';
-import { CollectionsBookmarkRounded } from '@mui/icons-material';
 
 class TaskForm extends React.Component {
     constructor(props) {

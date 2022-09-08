@@ -97,7 +97,7 @@
     padding: 0px;
     top: -10px;
     left: 0;
-    width: calc(100% + 10px);
+    width: calc(100%);
     height: calc(100% + 20px);
     z-index: 1;
 }
@@ -110,7 +110,7 @@
     padding: 0px;
     top: -10px;
     left: 0;
-    width: calc(100% + 10px);
+    width: calc(100%);
     height: calc(100% + 20px);
     z-index: 1;
 }
